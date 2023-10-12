@@ -2,7 +2,6 @@
 
 import { useStoreModal } from "@/hooks/use-store-modal";
 import { UserButton } from "@clerk/nextjs";
-import Image from "next/image";
 import { useEffect } from "react";
 
 export default function RootPage() {
