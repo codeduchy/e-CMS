@@ -30,7 +30,6 @@ const DashboardLayout = async ({
   return (
     <>
       <Navbar />
-      <div>This will be a navbar</div>
       {children}
     </>
   );
