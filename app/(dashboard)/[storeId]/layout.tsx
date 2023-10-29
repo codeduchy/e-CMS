@@ -29,7 +29,7 @@ const DashboardLayout = async ({
   return (
     <div>
       <Navbar />
-      {children}
+      <div className="p-8 pt-6">{children}</div>
     </div>
   );
 };
