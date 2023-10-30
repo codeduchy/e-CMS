@@ -21,6 +21,8 @@ model Store {
   billboards  Billboard[] @relation("StoreToBillboard")
   categories Category[] @relation("StoreToCategory")
   sizes Size[] @relation("StoreToSize")
+  colors Color[] @relation("StoreToColor")
+  products Product[] @relation("StoreToProduct")
 }
 
 model Billboard {
@@ -46,6 +48,7 @@ model Category {
 
   billboard Billboard @relation(fields: [billboardId], references: [id])
   store Store @relation("StoreToCategory", fields:[storeId], references: [id])
+  category Product[] @relation("CategoryToProduct")
 
   createdAt DateTime @default(now())
 
@@ -62,7 +65,59 @@ model Size {
 
   storeId String
   store Store @relation("StoreToSize", fields: [storeId], references: [id])
+  products  Product[]
 
   @@index([storeId])
 }
 
+model Color {
+  id  String @id @default(uuid())
+  name  String
+  value String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  storeId String
+  store Store @relation("StoreToColor", fields: [storeId], references: [id])
+  products Product[]
+
+  @@index([storeId])
+}
+
+model Product {
+  id  String @id @default(uuid())
+  storeId String
+  categoryId  String
+  name  String
+  price Decimal
+  isFeatured  Boolean @default(false)
+  isArchived  Boolean
+  sizeId String
+  colorId String
+  
+  color Color @relation(fields: [colorId], references: [id])
+  size  Size @relation(fields: [sizeId], references: [id])
+  store Store @relation("StoreToProduct",fields:[storeId],references:[id])
+  category  Category @relation("CategoryToProduct",fields: [categoryId], references: [id])
+  images Image[]
+
+  createdAt DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+
+  @@index([storeId])
+  @@index([categoryId])
+  @@index([sizeId])
+  @@index([colorId])
+}
+
+model Image {
+  id  String @id @default(uuid())
+  productId String
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId])
+}
