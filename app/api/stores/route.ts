@@ -11,7 +11,6 @@ export async function POST(req: Request) {
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-
     if (!name) {
       return new NextResponse("Name is required", { status: 400 });
     }
@@ -25,7 +24,9 @@ export async function POST(req: Request) {
 
     return NextResponse.json(store);
   } catch (error) {
-    console.log(`[STORES_POST]: `, error);
-    return new NextResponse("Internal error", { status: 500 });
+    console.log(`[STORES_API_POST]`, error);
+    return new NextResponse("Internal error", {
+      status: 500,
+    });
   }
 }

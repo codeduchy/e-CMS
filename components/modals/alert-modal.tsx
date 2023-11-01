@@ -1,8 +1,7 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import Modal from "./modal";
 import { Button } from "../ui/button";
+import Modal from "./modal";
 
 type AlertModalProps = {
   isOpen: boolean;
@@ -11,7 +10,7 @@ type AlertModalProps = {
   loading: boolean;
 };
 
-export const AlertModal: React.FC<AlertModalProps> = ({
+const AlertModal: React.FC<AlertModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
@@ -45,3 +44,5 @@ export const AlertModal: React.FC<AlertModalProps> = ({
     </Modal>
   );
 };
+
+export default AlertModal;

@@ -11,7 +11,6 @@ const DashboardLayout = async ({
   params: { storeId: string };
 }) => {
   const { userId } = auth();
-
   if (!userId) {
     redirect("/sign-in");
   }
@@ -28,10 +27,10 @@ const DashboardLayout = async ({
   }
 
   return (
-    <>
+    <div>
       <Navbar />
-      {children}
-    </>
+      <div className="p-8 pt-6">{children}</div>
+    </div>
   );
 };
 

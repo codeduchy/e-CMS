@@ -11,34 +11,32 @@ datasource db {
   relationMode = "prisma"
 }
 
-
 model Store {
-  id        String @id @default(uuid())
-  name      String
-  userId    String
+  id  String @id @default(uuid())
+  name  String
+  userId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-
-  sizes       Size[] @relation("StoreToSize")
-  colors      Color[] @relation("StoreToColor")
-  categories  Category[] @relation("StoreToCategory")
   billboards  Billboard[] @relation("StoreToBillboard")
-  products    Product[] @relation("StoreToProduct")
-  orders Order[] @relation("StoreToOrder")
+  categories Category[] @relation("StoreToCategory")
+  sizes Size[] @relation("StoreToSize")
+  colors Color[] @relation("StoreToColor")
+  products Product[] @relation("StoreToProduct")
+  orders  Order[] @relation("StoreToOrder")
 }
 
 model Billboard {
-  id          String @id @default(uuid())
-  label       String 
-  imageUrl    String
+  id  String @id @default(uuid())
+  label String
+  imageUrl  String
 
-  storeId     String
+  storeId  String
+  store Store @relation("StoreToBillboard", fields: [storeId], references: [id])
   categories  Category[]
-  store       Store @relation("StoreToBillboard", fields: [storeId], references: [id])
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@index([storeId])
 }
@@ -50,18 +48,17 @@ model Category {
   billboardId String
 
   billboard Billboard @relation(fields: [billboardId], references: [id])
-  products  Product[] @relation("CategoryToProduct")
   store Store @relation("StoreToCategory", fields:[storeId], references: [id])
+  category Product[] @relation("CategoryToProduct")
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@index([storeId])
   @@index([billboardId])
 }
 
 model Size {
-  id String @id @default(uuid())
+  id  String @id @default(uuid())
   name    String
   value   String
   createdAt DateTime @default(now())
@@ -69,22 +66,21 @@ model Size {
 
   storeId String
   store Store @relation("StoreToSize", fields: [storeId], references: [id])
-  products Product[]
+  products  Product[]
 
   @@index([storeId])
 }
 
 model Color {
-  id String @id @default(uuid())
-  name    String
-  value   String
+  id  String @id @default(uuid())
+  name  String
+  value String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   storeId String
   store Store @relation("StoreToColor", fields: [storeId], references: [id])
   products Product[]
-
 
   @@index([storeId])
 }
@@ -99,14 +95,13 @@ model Product {
   isArchived  Boolean
   sizeId String
   colorId String
-
-
+  
   color Color @relation(fields: [colorId], references: [id])
   size  Size @relation(fields: [sizeId], references: [id])
   store Store @relation("StoreToProduct",fields:[storeId],references:[id])
   category  Category @relation("CategoryToProduct",fields: [categoryId], references: [id])
   images Image[]
-  orderItems  OrderItem[]
+  orderItems OrderItem[]
 
   createdAt DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -121,7 +116,6 @@ model Product {
 model Image {
   id  String @id @default(uuid())
   productId String
-  
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   url String
   createdAt DateTime @default(now())
@@ -131,7 +125,7 @@ model Image {
 }
 
 model Order {
-  id String @id @default(uuid())
+  id  String @id @default(uuid())
   storeId String
   isPaid Boolean @default(false)
   phone String @default("")
@@ -139,19 +133,18 @@ model Order {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  store Store @relation("StoreToOrder",fields: [storeId], references: [id])
-  orderItems OrderItem[]
+  store Store @relation("StoreToOrder", fields: [storeId], references: [id])
+  orderItems  OrderItem[]
 
   @@index([storeId])
 }
 
 model OrderItem {
-  id String @id @default(uuid())
+  id  String @id @default(uuid())
   orderId String
   order Order @relation(fields: [orderId], references: [id])
   productId String
   product Product @relation(fields: [productId], references: [id])
-
 
   @@index([orderId])
   @@index([productId])

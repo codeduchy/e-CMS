@@ -2,15 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-:root,
-html,
-body {
-  height: 100%;
-}
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 97%;
     --foreground: 0 0% 3.9%;
 
     --card: 0 0% 100%;
@@ -42,7 +36,7 @@ body {
   }
 
   .dark {
-    --background: 0 0% 3.9%;
+    --background: 0 1% 5.9%;
     --foreground: 0 0% 98%;
 
     --card: 0 0% 3.9%;

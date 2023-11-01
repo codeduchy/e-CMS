@@ -34,13 +34,13 @@ export async function PATCH(
 
     return NextResponse.json(store);
   } catch (error) {
-    console.log(`[STORE_PATCH]: `, error);
+    console.log(`[STORE_API_PATCH]: `, error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
 
 export async function DELETE(
-  _req: Request,
+  req: Request,
   { params }: { params: { storeId: string } }
 ) {
   try {
@@ -61,7 +61,7 @@ export async function DELETE(
 
     return NextResponse.json(store);
   } catch (error) {
-    console.log(`[STORE_DELETE]: `, error);
+    console.log(`[STORE_API_DELETE]: `, error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }

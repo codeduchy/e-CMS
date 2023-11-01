@@ -1,17 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
-
 import {
   ColumnDef,
-  flexRender,
   ColumnFiltersState,
+  flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
   getFilteredRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
+import { useState } from "react";
+import { Input } from "./ui/input";
 import {
   Table,
   TableBody,
@@ -19,10 +18,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "./ui/input";
+} from "./ui/table";
+import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -30,11 +28,11 @@ interface DataTableProps<TData, TValue> {
   searchKey: string;
 }
 
-export function DataTable<TData, TValue>({
+const DataTable = <TData, TValue>({
   columns,
   data,
   searchKey,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData, TValue>) => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
@@ -89,7 +87,10 @@ export function DataTable<TData, TValue>({
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell
+                      key={row.id}
+                      className={`${cell.id === "0_actions" && "text-right"}`}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -101,7 +102,7 @@ export function DataTable<TData, TValue>({
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={columnFilters.length}
                   className="h-24 text-center"
                 >
                   No results.
@@ -131,4 +132,6 @@ export function DataTable<TData, TValue>({
       </div>
     </div>
   );
-}
+};
+
+export default DataTable;

@@ -33,7 +33,6 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
   const storeModal = useStoreModal();
   const params = useParams();
   const router = useRouter();
-
   const [open, setOpen] = useState(false);
 
   const formattedItems = items.map((item) => ({
@@ -56,13 +55,17 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
         <Button
           variant="outline"
           size="sm"
-          role="combobox"
           aria-expanded={open}
           aria-label="Select a store"
-          className={cn("w-[200px] justify-between", className)}
+          className={cn(
+            "flex w-[200px] justify-between overflow-hidden",
+            className
+          )}
         >
-          <StoreIcon className="mr-2 h-4 w-4" />
-          {currentStore?.label}
+          <StoreIcon className="mr-2 h-4 w-4 shrink-0" />
+          <p className="w-[140px] text-left overflow-ellipsis whitespace-nowrap overflow-hidden">
+            {currentStore?.label}
+          </p>
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -76,7 +79,7 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
                 <CommandItem
                   key={store.value}
                   onSelect={() => onStoreSelect(store)}
-                  className="text-sm"
+                  className="text-sm cursor-pointer"
                 >
                   <StoreIcon className="mr-2 h-4 w-4" />
                   {store.label}
@@ -99,6 +102,7 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
                 setOpen(false);
                 storeModal.onOpen();
               }}
+              className="cursor-pointer"
             >
               <PlusCircle className="mr-2 h-5 w-5" />
               Create Store

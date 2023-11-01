@@ -1,10 +1,10 @@
 "use client";
 
-import { Copy, Server } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { Badge, BadgeProps } from "./ui/badge";
-import { Button } from "./ui/button";
 import toast from "react-hot-toast";
+import { Badge, BadgeProps } from "./ui/badge";
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
+import { Copy, Server } from "lucide-react";
+import { Button } from "./ui/button";
 
 type ApiAlertProps = {
   title: string;
@@ -39,7 +39,7 @@ const ApiAlert: React.FC<ApiAlertProps> = ({
         <Badge variant={variantMap[variant]}>{textMap[variant]}</Badge>
       </AlertTitle>
       <AlertDescription className="mt-4 flex items-center justify-between">
-        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+        <code className="relative rounded bg-muted px-[0.7rem] py-[0.5rem] font-mono text-sm font-semibold w-full mr-2 break-words overflow-hidden">
           {description}
         </code>
         <Button variant="outline" size="icon" onClick={onCopy}>

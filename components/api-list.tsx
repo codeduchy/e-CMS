@@ -1,6 +1,3 @@
-"use client";
-
-import useOrigin from "@/hooks/use-origin";
 import { useParams } from "next/navigation";
 import ApiAlert from "./api-alert";
 
@@ -11,8 +8,7 @@ type ApiListProps = {
 
 const ApiList: React.FC<ApiListProps> = ({ entityIdName, entityName }) => {
   const params = useParams();
-  const origin = useOrigin();
-
+  const origin = process.env.NEXT_PUBLIC_URL;
   const baseUrl = `${origin}/api/${params.storeId}`;
 
   return (

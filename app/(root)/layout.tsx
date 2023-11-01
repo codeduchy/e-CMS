@@ -2,16 +2,9 @@ import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const { userId } = auth();
-
-  if (!userId) {
-    redirect("/sign-in");
-  }
+  if (!userId) redirect("/sign-in");
 
   const store = await prismadb.store.findFirst({
     where: {
@@ -24,4 +17,6 @@ export default async function RootLayout({
   }
 
   return <div>{children}</div>;
-}
+};
+
+export default RootLayout;
