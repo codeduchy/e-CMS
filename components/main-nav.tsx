@@ -65,6 +65,13 @@ const MainNav = ({
           {route.label}
         </Link>
       ))}
+      <a
+        href="https://e-cms-store.vercel.app/"
+        target="_blank"
+        className={"text-sm font-bold text-muted-foreground text-center"}
+      >
+        [Store Unfinished]
+      </a>
     </nav>
   );
 };
