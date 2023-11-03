@@ -66,7 +66,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
       }
 
       router.refresh();
-      router.push(`/api/${params.storeId}/billboards`);
+      router.push(`/${params.storeId}/billboards`);
       toast.success(toastMessage);
     } catch (error: any) {
       toast.error(
